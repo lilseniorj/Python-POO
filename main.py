@@ -1,15 +1,37 @@
-
-
 class Book:
 
-    def __init__(self, title, author, popular):
+    def __init__(self, title, author, popular, isbn, disponible=True):
         self.title = title
         self.author = author
         self.popular = popular
+        self.isbn = isbn
+        self.disponible = disponible
+        self.historial_prestamos = []
 
-my_book = Book("100 años de soledad", " Gabriel Garcia Marquez", "very popular")
-another_book = Book("El principito", "Saint-Exupéry", "is popular")
+    def __str__(self):
+        return f"{self.title} por {self.author}, disponible: {self.disponible}"
 
-print(f"My Book:  {my_book.title} {my_book.author}, \nPopular: {my_book.popular}")
-print(f"Another Book:  {another_book.title} {another_book.author}, \nPopular: {another_book.popular}")
+    def prestar(self):
+        if self.disponible:
+            self.disponible = False
+            self.historial_prestamos.append(self)
+            return f"{self.title}: prestado exitosamente."
+
+    def devolver(self):
+        self.disponible = True
+        return f"{self.title}, devuelto y disponible nuevamente"
+
+    def is_popular(self):
+        return self.historial_prestamos.count(self) > 5
+
+my_book = Book("100 años de soledad", " Gabriel Garcia Marquez", "very popular", "1212121212", True)
+another_book = Book("El principito", "Saint-Exupéry", "is popular", "141414141414", True)
+
+my_book.prestar()
+my_book.devolver()
+
+catalogo = (my_book, another_book)
+
+for book in catalogo:
+    print(book)
 
