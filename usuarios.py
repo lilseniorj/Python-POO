@@ -38,21 +38,3 @@ class Profesor(Usuario):
 	def solicitar_libro(self, titulo):
 		self.libros_prestados.append(titulo)
 		return f"Prestamo del libro: {titulo} autorizado"
-
-
-
-estudiante = Estudiante("Jesus", "123456", "Sistema")
-estudiante_1 = Estudiante("David", "1423456", "Salud")
-profesor = Profesor("Luis", "4123123")
-
-usuarios = [estudiante, profesor, estudiante_1, libro]
-
-from main import Libro
-
-libro = Libro("Titulo de prueba", "Autor de prueba", isbn="13123124")
-
-usuarios: list[SolicitanteProtocol] = [estudiante, estudiante_1, profesor, libro]
-
-
-for usuario in usuarios:
-	print(usuario.solicitar_libro("Tirulo del ejemplo"))
