@@ -1,6 +1,7 @@
 from biblioteca import Biblioteca
 from libros import LibroFisico
 from usuarios import Estudiante, Profesor, SolicitanteProtocol
+from exceptions import BibliotecaError
 
 biblioteca = Biblioteca("Platzi Biblioteca")
 
@@ -34,3 +35,13 @@ otro_libro = LibroFisico(
 biblioteca.libros = [mi_libro, mi_libro_no_disponible, otro_libro]
 
 print(biblioteca.libros)
+
+try:
+    resultado = estudiante.solicitar_libro(None)
+except BibliotecaError as e:
+    print(f"{e}, {type(e)}")
+    print("Error no se pudo solicitar el libro")
+
+
+resultado = estudiante.solicitar_libro("El Principito")
+print(resultado)

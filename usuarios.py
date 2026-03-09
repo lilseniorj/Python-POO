@@ -1,5 +1,7 @@
 from typing import Protocol
 
+from exceptions import TituloInvalidoError
+
 class SolicitanteProtocol(Protocol):
 	def  solicitar_libro(self, titulo: str) -> str:
 		"""Metodo que debe implementar cualquier solicitante"""
@@ -22,6 +24,9 @@ class Estudiante(Usuario):
 		self.limite_libros = 3
 
 	def solicitar_libro(self, titulo):
+		if not titulo:
+			raise TituloInvalidoError(f"El libro con el titulo: {titulo}, no es valido")
+
 		if len(self.libros_prestados) < self.limite_libros:
 			self.libros_prestados.append(titulo)
 			return f"Prestamo del libro: {titulo} autorizado"
