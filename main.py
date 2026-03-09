@@ -1,48 +1,91 @@
-class Book:
+from typing import Protocol
 
-    def __init__(self, title, author, popular, isbn, disponible=True):
-        self.title = title
-        self.author = author
-        self.popular = popular
+
+class LibroProtocol(Protocol):
+    def prestar(self) -> str:
+        """Método de prestar un libro"""
+        ...
+
+    def devolver(self) -> str:
+        """Método de devolver un libro"""
+        ...
+
+    def calcular_duracion(self) -> str:
+        """Calcula el tiempo de prestamo"""
+        ...
+
+
+class Libro:
+    def __init__(self, titulo, autor, isbn, disponible=True):
+        self.titulo = titulo
+        self.autor = autor
         self.isbn = isbn
         self.disponible = disponible
-        self.__historial_prestamos = 0
+        self.__veces_prestado = 0
 
     def __str__(self):
-        return f"{self.title} por {self.author}, disponible: {self.disponible}"
+        return f"{self.titulo} por {self.autor} disponible: {self.disponible}"
 
     def prestar(self):
         if self.disponible:
             self.disponible = False
-            self.__historial_prestamos += 1
-            return f"{self.title}: prestado exitosamente. Total préstamos: {self.__historial_prestamos}"
-        return f"{self.title} no está disponible"
+            self.__veces_prestado += 1
+            return f"'{self.titulo}' prestado exitosamente. Total préstamos: {self.__veces_prestado}"
+        return f"'{self.titulo}' no está disponible"
 
     def devolver(self):
         self.disponible = True
-        return f"{self.title}, devuelto y disponible nuevamente"
+        return f"'{self.titulo}' devuelto y disponible nuevamente"
 
-    def is_popular(self):
-        return self.historial_prestamos > 5
+    def es_popular(self):
+        return self.__veces_prestado > 5
 
-    def get__historial_prestamos(self):
-        return self.__historial_prestamos
+    def get_veces_prestado(self):
+        return self.__veces_prestado
 
-    def set_historial_prestamos(self, historial_prestamos):
-        self.__historial_prestamos = historial_prestamos
+    def set_veces_prestado(self, veces_prestado):
+        self.__veces_prestado = veces_prestado
 
-my_book = Book("100 años de soledad", " Gabriel Garcia Marquez", "very popular", "1212121212", True)
-another_book = Book("El principito", "Saint-Exupéry", "is popular", "141414141414", True)
 
-my_book.set_historial_prestamos(10)
-print(my_book.get__historial_prestamos())
+class LibroFisico(Libro):
+    def calcular_duracion(self):
+        return "7 días"
 
-# print(my_book.prestar())
-# print(my_book.prestar())
-# print(my_book.devolver())
 
-catalogo = (my_book, another_book)
+class LibroDigital(Libro):
+    def calcular_duracion(self):
+        return "14 días"
 
-for book in catalogo:
-    print(book)
 
+class Biblioteca:
+    def __init__(self, name) -> None:
+        self.name = name
+        self.libros: list[Libro] = []
+        self.usuarios: list = []
+
+    def libros_disponibles(self):
+        return [libro.titulo for libro in self.libros if libro.disponible]
+
+
+mi_libro = LibroFisico(
+    "100 Años de Soledad",
+    "Gabriel Garcia Marquez",
+    "9781644734728",
+    True,
+)
+mi_libro_no_disponible = LibroFisico(
+    "No disponible",
+    "Luis",
+    "56789",
+    True,
+)
+otro_libro = LibroFisico(
+    "El Principito",
+    "Saint-Exupéry",
+    "9781644731234728",
+    True,
+)
+
+biblioteca = Biblioteca("Platzi Biblioteca")
+biblioteca.libros = [mi_libro, mi_libro_no_disponible, otro_libro]
+print(biblioteca.libros_disponibles())
