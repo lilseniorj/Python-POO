@@ -16,7 +16,7 @@ class TituloInvalidoError(BibliotecaError):
   pass
 
 
-class LibroNoDisponibleError:
+class LibroNoDisponibleError(Exception):
   """El libro no esta disponible para préstamo"""
 
   pass
