@@ -8,7 +8,7 @@ class Biblioteca:
         self.usuarios: list = []
 
     def libros_disponibles(self):
-        return [libro.titulo for libro in self.libros if libro.disponible]
+        return [libro for libro in self.libros if libro.disponible]
 
     def buscar_usuario(self, id):
         for usuario in self.usuarios:

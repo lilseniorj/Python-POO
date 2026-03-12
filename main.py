@@ -10,11 +10,14 @@ profesor = Profesor("Luis", "4123123")
 biblioteca.usuarios = [profesor] + data_estudiantes
 biblioteca.libros = list(data_libros)
 
+# libro_de_prueba = data_libros[0]
+# libro_de_prueba.veces_prestado = -1
+
 print("Bienvenido a lil Biblioteca")
 
 print("Libros disponibles: ")
-for titulo in biblioteca.libros_disponibles():
-    print(f" - {titulo}")
+for libro in biblioteca.libros_disponibles():
+    print(libro.descripcion_completa)
 print()
 
 id = input("Digite el numero de cedula: ")

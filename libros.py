@@ -37,15 +37,23 @@ class Libro:
         self.disponible = True
         return f"'{self.titulo}' devuelto y disponible nuevamente"
 
+    @property
     def es_popular(self):
         return self.__veces_prestado > 5
 
-    def get_veces_prestado(self):
+    @property
+    def veces_prestado(self):
         return self.__veces_prestado
 
-    def set_veces_prestado(self, veces_prestado):
-        self.__veces_prestado = veces_prestado
+    @veces_prestado.setter
+    def veces_prestado(self, veces_prestado):
+        if veces_prestado > 0:
+            self.__veces_prestado = veces_prestado
+        raise ValueError("El valor de veces prestado debe ser mayor a cero")
 
+    @property
+    def descripcion_completa(self):
+        return f"{self.titulo} por {self.autor} (ISBN: {self.isbn})"
 
 class LibroFisico(Libro):
     def calcular_duracion(self):
