@@ -2,6 +2,7 @@ from biblioteca import Biblioteca
 from data import data_estudiantes, data_libros
 from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError
 from usuarios import Profesor
+from libros import Libro
 
 biblioteca = Biblioteca("Platzi Biblioteca")
 profesor = Profesor("Luis", "4123123")
@@ -12,6 +13,11 @@ biblioteca.libros = list(data_libros)
 
 # libro_de_prueba = data_libros[0]
 # libro_de_prueba.veces_prestado = -1
+libro_no_disponible = Libro.crear_no_disponible(
+    "Libro de prieba", "Author de prueba", "23423523"
+)
+print("Libro disponibles:", libro_no_disponible.disponible)
+
 
 print("Bienvenido a lil Biblioteca")
 
@@ -44,3 +50,8 @@ try:
     print(f"\n{resultado_prestar}" )
 except LibroNoDisponibleError as e:
     print(e)
+
+
+# resultado = Biblioteca.validar_isbn("1232312312")
+# print(f"EL ISBN es valido: {resultado}")
+
