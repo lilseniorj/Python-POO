@@ -1,4 +1,3 @@
-from biblioteca import Biblioteca
 from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError
 from persistencia import Persistencia
 
